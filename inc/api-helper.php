@@ -374,14 +374,118 @@ function tonkin_clear_api_cache_on_options_save($post_id)
 add_action('acf/save_post', 'tonkin_clear_api_cache_on_options_save', 20);
 
 /**
+ * Get HTTP Basic Auth credentials from the current request.
+ *
+ * @return array{username:string,password:string}
+ */
+function tonkin_get_debug_basic_auth_credentials()
+{
+    $username = isset($_SERVER['PHP_AUTH_USER']) ? (string) $_SERVER['PHP_AUTH_USER'] : '';
+    $password = isset($_SERVER['PHP_AUTH_PW']) ? (string) $_SERVER['PHP_AUTH_PW'] : '';
+
+    if ($username !== '' || $password !== '') {
+        return array(
+            'username' => $username,
+            'password' => $password,
+        );
+    }
+
+    $auth_header = '';
+
+    if (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
+        $auth_header = (string) $_SERVER['HTTP_AUTHORIZATION'];
+    } elseif (!empty($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+        $auth_header = (string) $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+    }
+
+    if ($auth_header && stripos($auth_header, 'basic ') === 0) {
+        $decoded = base64_decode(substr($auth_header, 6), true);
+
+        if ($decoded !== false && strpos($decoded, ':') !== false) {
+            list($username, $password) = explode(':', $decoded, 2);
+
+            return array(
+                'username' => (string) $username,
+                'password' => (string) $password,
+            );
+        }
+    }
+
+    return array(
+        'username' => '',
+        'password' => '',
+    );
+}
+
+/**
+ * Send the browser's Basic Auth prompt for Tonkin debug access.
+ *
+ * @param string $message Response body.
+ * @return void
+ */
+function tonkin_send_debug_auth_challenge($message)
+{
+    nocache_headers();
+    header('WWW-Authenticate: Basic realm="Tonkin API Debug"');
+    status_header(401);
+    wp_die(esc_html($message), 'Tonkin API Debug', array('response' => 401));
+}
+
+/**
+ * Require valid Basic Auth before allowing Tonkin debug output.
+ *
+ * @return void
+ */
+function tonkin_require_debug_basic_auth()
+{
+    $auth_body = tonkin_get_api_auth_body();
+
+    if (empty($auth_body['username']) || empty($auth_body['password'])) {
+        status_header(403);
+        wp_die(
+            esc_html__('Tonkin API debug is unavailable because API credentials have not been configured.', 'kmar'),
+            'Tonkin API Debug',
+            array('response' => 403)
+        );
+    }
+
+    $credentials = tonkin_get_debug_basic_auth_credentials();
+
+    if (
+        $credentials['username'] === ''
+        && $credentials['password'] === ''
+    ) {
+        tonkin_send_debug_auth_challenge('Authentication required.');
+    }
+
+    if (
+        !hash_equals((string) $auth_body['username'], (string) $credentials['username'])
+        || !hash_equals((string) $auth_body['password'], (string) $credentials['password'])
+    ) {
+        tonkin_send_debug_auth_challenge('Invalid username or password.');
+    }
+}
+
+/**
  * Debug function to test API connection
- * Usage: Add ?tonkin_debug=1 to any page URL (admin only)
+ * Usage: Add ?tonkin_debug=1 while logged in as a WordPress admin and authenticate via browser Basic Auth
  */
 function tonkin_debug_api()
 {
-    if (!isset($_GET['tonkin_debug']) || !current_user_can('manage_options')) {
+    if (!isset($_GET['tonkin_debug'])) {
         return;
     }
+
+    if (!is_user_logged_in() || !current_user_can('manage_options')) {
+        status_header(403);
+        wp_die(
+            esc_html__('You must be logged in as a WordPress administrator to access Tonkin API debug.', 'kmar'),
+            'Tonkin API Debug',
+            array('response' => 403)
+        );
+    }
+
+    tonkin_require_debug_basic_auth();
 
     // Clear cache first
     tonkin_clear_api_cache();
