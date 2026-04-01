@@ -1,0 +1,147 @@
+.kmar_404-st0 {
+  fill: #fff;
+}
+.kmar_404-st2 {
+  fill: #5d89af;
+}
+.kmar_404-st3 {
+  fill: #709abf;
+}
+.kmar_404-st4,
+.kmar_404-st6 {
+  fill: #fff;
+  stroke: #b3dcdf;
+  stroke-miterlimit: 10;
+}
+.kmar_404-st6 {
+  stroke: #5d89af;
+  stroke-width: 2;
+}
+.kmar_404-st7,
+.kmar_404-st8,
+.kmar_404-st9 {
+  stroke: #709abf;
+  stroke-miterlimit: 10;
+}
+.kmar_404-st7 {
+  stroke-width: 5;
+  stroke-linecap: round;
+  fill: none;
+}
+.kmar_404-st8,
+.kmar_404-st9 {
+  fill: #fff;
+}
+.kmar_404-st9 {
+  fill: none;
+}
+#kmar_404-cloud1 {
+  animation: hazh_404-cloud003 15s linear infinite;
+}
+#kmar_404-cloud2 {
+  animation: hazh_404-cloud002 25s linear infinite;
+}
+#kmar_404-cloud3 {
+  animation: hazh_404-cloud003 20s linear infinite;
+}
+#kmar_404-cloud4 {
+  animation: hazh_404-float 4s linear infinite;
+}
+#kmar_404-cloud5 {
+  animation: hazh_404-float 8s linear infinite;
+}
+#kmar_404-cloud7 {
+  animation: hazh_404-float 5s linear infinite;
+}
+#kmar_404-tracks {
+  animation: hazh_404-slide 650ms linear infinite;
+}
+#kmar_404-bumps {
+  animation: hazh_404-land 10s linear infinite;
+}
+@keyframes hazh_404-jig {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+#car-layers {
+  animation: hazh_404-jig 0.35s linear infinite;
+}
+@keyframes hazh_404-land {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(1000px);
+  }
+}
+@keyframes hazh_404-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100px);
+  }
+}
+@keyframes hazh_404-cloud001 {
+  0% {
+    transform: translateX(-1000px) translateY(3px);
+  }
+  100% {
+    transform: translateX(1000px) translateY(0);
+  }
+}
+@keyframes hazh_404-cloud002 {
+  0% {
+    transform: translateX(-1000px) translateY(3px);
+  }
+  100% {
+    transform: translateX(1000px) translateY(0);
+  }
+}
+@keyframes hazh_404-cloud003 {
+  0% {
+    transform: translateX(-1000px) translateY(3px);
+  }
+  100% {
+    transform: translateX(1000px) translateY(0);
+  }
+}
+@keyframes hazh_404-float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(8px) translateX(5px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+#kmar_404-braceback,
+#kmar_404-bracefront {
+  animation: hazh_404-braces 1s linear infinite;
+}
+@keyframes hazh_404-braces {
+  0% {
+    transform: translateX(-2px);
+  }
+  25% {
+    transform: translateX(3px);
+  }
+  50% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+  100% {
+    transform: translateX(-2px);
+  }
+}

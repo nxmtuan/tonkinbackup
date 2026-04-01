@@ -1,0 +1,671 @@
+//*-----------main-css-------------*//
+// Khai báo kích thước tương ứng với màn hình thiết bị
+
+$SM: 767px;
+$MD: 991px;
+$XL: 992px;
+
+// media queries
+
+@mixin Responsive($screen) {
+  @if $screen == SM {
+    @media only screen and (max-width: $SM) {
+      @content;
+    }
+  } @else if $screen == MD {
+    @media only screen and (max-width: $MD) {
+      @content;
+    }
+  } @else if $screen == XL {
+    @media only screen and (min-width: $XL) {
+      @content;
+    }
+  }
+}
+// --------------------------------------------------
+// Flexbox SASS mixins
+// The spec: http://www.w3.org/TR/css3-flexbox
+// --------------------------------------------------
+
+// Flexbox display
+@mixin flexbox {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+// Inline flex display
+@mixin inline-flex {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+// The 'flex' shorthand
+// - applies to: flex items
+// <positive-number>, initial, auto, or none
+@mixin flex($fg: 1, $fs: 0, $fb: auto) {
+  // Set a variable to be used by box-flex properties
+  $fg-boxflex: $fg;
+
+  // Box-Flex only supports a flex-grow value so lets grab the
+  // first item in the list and just return that.
+  @if type-of($fg) == "list" {
+    $fg-boxflex: nth($fg, 1);
+  }
+
+  -webkit-box: $fg-boxflex;
+  -moz-box: $fg-boxflex;
+  -webkit-flex: $fg $fs $fb;
+  -ms-flex: $fg $fs $fb;
+  flex: $fg $fs $fb;
+}
+
+// Flex Flow Direction
+// - applies to: flex containers
+// row (default) | row-reverse | column | column-reverse
+@mixin flex-direction($direction: row) {
+  @if $direction == row-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+    -moz-box-direction: reverse;
+    -moz-box-orient: horizontal;
+  } @else if $direction == column {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-box-direction: normal;
+    -moz-box-orient: vertical;
+  } @else if $direction == column-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+    -moz-box-direction: reverse;
+    -moz-box-orient: vertical;
+  } @else {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -moz-box-orient: horizontal;
+  }
+  -webkit-flex-direction: $direction;
+  -ms-flex-direction: $direction;
+  flex-direction: $direction;
+}
+
+// Flex Line Wrapping
+// - applies to: flex containers
+// nowrap | wrap | wrap-reverse
+@mixin flex-wrap($value: nowrap) {
+  // No Webkit/FF Box fallback.
+  -webkit-flex-wrap: $value;
+  @if $value == nowrap {
+    -ms-flex-wrap: none;
+  } @else {
+    -ms-flex-wrap: $value;
+  }
+  flex-wrap: $value;
+}
+
+// Flex Direction and Wrap
+// - applies to: flex containers
+// <flex-direction> || <flex-wrap>
+@mixin flex-flow(
+  $values: (
+    row nowrap
+  )
+) {
+  // No Webkit/FF Box fallback.
+  -webkit-flex-flow: $values;
+  -ms-flex-flow: $values;
+  flex-flow: $values;
+}
+
+// Display Order
+// - applies to: flex items
+// <integer>
+@mixin order($int: 0) {
+  -webkit-box-ordinal-group: $int + 1;
+  -moz-box-ordinal-group: $int + 1;
+  -webkit-order: $int;
+  -ms-flex-order: $int;
+  order: $int;
+}
+
+// Flex grow factor
+// - applies to: flex items
+// <number>
+@mixin flex-grow($int: 1) {
+  -webkit-box-flex: $int;
+  -moz-box-flex: $int;
+  -webkit-flex-grow: $int;
+  -ms-flex: $int;
+  flex-grow: $int;
+}
+
+// Flex shrink
+// - applies to: flex item shrink factor
+// <number>
+@mixin flex-shrink($int: 0) {
+  -webkit-flex-shrink: $int;
+  -moz-flex-shrink: $int;
+  -ms-flex: $int;
+  flex-shrink: $int;
+}
+
+// Flex basis
+// - the initial main size of the flex item
+// - applies to: flex itemsnitial main size of the flex item
+// <width>
+@mixin flex-basis($value: auto) {
+  -webkit-flex-basis: $value;
+  flex-basis: $value;
+}
+
+// Axis Alignment
+// - applies to: flex containers
+// flex-start | flex-end | center | space-between | space-around
+@mixin justify-content($value: flex-start) {
+  @if $value == flex-start {
+    -webkit-box-pack: start;
+    -moz-box-pack: start;
+    -ms-flex-pack: start;
+  } @else if $value == flex-end {
+    -webkit-box-pack: end;
+    -moz-box-pack: end;
+    -ms-flex-pack: end;
+  } @else if $value == space-between {
+    -webkit-box-pack: justify;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+  } @else if $value == space-around {
+    -ms-flex-pack: distribute;
+  } @else {
+    -webkit-box-pack: $value;
+    -moz-box-pack: $value;
+    -ms-flex-pack: $value;
+  }
+  -webkit-justify-content: $value;
+  justify-content: $value;
+}
+
+// Packing Flex Lines
+// - applies to: multi-line flex containers
+// flex-start | flex-end | center | space-between | space-around | stretch
+@mixin align-content($value: stretch) {
+  // No Webkit Box Fallback.
+  -webkit-align-content: $value;
+  @if $value == flex-start {
+    -ms-flex-line-pack: start;
+  } @else if $value == flex-end {
+    -ms-flex-line-pack: end;
+  } @else {
+    -ms-flex-line-pack: $value;
+  }
+  align-content: $value;
+}
+
+// Cross-axis Alignment
+// - applies to: flex containers
+// flex-start | flex-end | center | baseline | stretch
+@mixin align-items($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -ms-flex-align: start;
+  } @else if $value == flex-end {
+    -webkit-box-align: end;
+    -moz-box-align: end;
+    -ms-flex-align: end;
+  } @else {
+    -webkit-box-align: $value;
+    -moz-box-align: $value;
+    -ms-flex-align: $value;
+  }
+  -webkit-align-items: $value;
+  align-items: $value;
+}
+
+// Cross-axis Alignment
+// - applies to: flex items
+// auto | flex-start | flex-end | center | baseline | stretch
+@mixin align-self($value: auto) {
+  // No Webkit Box Fallback.
+  -webkit-align-self: $value;
+  @if $value == flex-start {
+    -ms-flex-item-align: start;
+  } @else if $value == flex-end {
+    -ms-flex-item-align: end;
+  } @else {
+    -ms-flex-item-align: $value;
+  }
+  align-self: $value;
+}
+@mixin smooth-trans($duration: 0.4s) {
+  -webkit-transition: $duration ease-out 0s;
+  -moz-transition: $duration ease-out 0s;
+  -ms-transition: $duration ease-out 0s;
+  -o-transition: $duration ease-out 0s;
+  transition: $duration ease-out 0s;
+}
+
+@mixin flex-box() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin flex-box-center() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+a {
+  -webkit-transition: color 0.4s ease-out 0s;
+  -moz-transition: color 0.4s ease-out 0s;
+  -ms-transition: color 0.4s ease-out 0s;
+  -o-transition: color 0.4s ease-out 0s;
+  transition: color 0.4s ease-out 0s;
+}
+.ws-sgct blockquote {
+  background: rgb(248, 248, 248);
+  font-size: 16px;
+  font-style: italic;
+  padding: 10px 15px;
+  border-left: 3px solid rgb(220, 224, 232);
+  line-height: 1.7;
+}
+.ws-sgct blockquote p {
+  margin: 0 !important;
+}
+.ws-sgct code {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.ws-sgct {
+  font-size: 16px;
+  line-height: 1.5;
+  a {
+    color: var(--primary-color);
+  }
+  .wp-block-image {
+    width: 100%;
+  }
+}
+.ws-sgct p {
+  margin-bottom: 1.5rem;
+  font-size: 16px;
+}
+
+.ws-sgct img {
+  margin: 2rem auto 2rem auto;
+}
+.ws-sgct table {
+  margin: 0 0 15px;
+  line-height: 2;
+  margin: 0px 0px 20px;
+  padding: 0px;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0px;
+  background-color: rgb(255, 255, 255);
+  border-top: 1px solid rgb(236, 236, 236);
+  border-collapse: collapse;
+  border-radius: 5px;
+  border-right-style: hidden;
+  border-bottom-style: hidden;
+  border-left-style: hidden;
+  box-shadow: rgb(221 221 221) 0px 0px 0px 1px;
+  overflow: hidden;
+  border-top: none !important;
+}
+.ws-sgct table {
+  border: 1px solid #ddd;
+  margin-bottom: 30px;
+  text-align: left;
+  font-size: 14px;
+  p {
+    margin-bottom: 0;
+    text-align: left;
+    font-size: 14px;
+  }
+  tr:nth-child(2n) {
+    background-color: rgb(248, 250, 252);
+  }
+}
+.ws-sgct table > tbody > tr > td,
+.ws-sgct table > tbody > tr > th,
+.ws-sgct table > tfoot > tr > td,
+.ws-sgct table > tfoot > tr > th,
+.ws-sgct table > thead > tr > td,
+.ws-sgct table > thead > tr > th {
+  border: 1px solid #ddd;
+  padding: 7px 10px;
+}
+.ws-sgct h6 {
+  font-size: 18px;
+}
+.ws-sgct h5 {
+  font-size: 2.1rem;
+}
+.ws-sgct h4 {
+  font-size: 16px;
+}
+.ws-sgct h3 {
+  font-size: 17px;
+}
+.ws-sgct h2 {
+  font-size: 18px;
+}
+
+.ws-sgct ul,
+.ws-sgct ol {
+  margin: 0 0 20px;
+  padding-left: 30px;
+}
+.ws-sgct ul li,
+.ws-sgct ol li {
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.ws-sgct ol {
+  list-style: decimal;
+}
+.ws-sgct ul {
+  list-style: disc;
+}
+.ws-sgct iframe {
+  margin: auto;
+}
+.ws-sgct .syntaxhighlighter {
+  padding: 10px 0;
+}
+.ws-sgct h2,
+.ws-sgct h3,
+.ws-sgct h4,
+.ws-sgct h5,
+.ws-sgct h6,
+.ws-sgct h1 {
+  margin: 0 0 12px;
+  font-weight: 700;
+  color: #323232;
+}
+
+//menu mb
+@include Responsive(MD) {
+  .header__menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100%;
+    max-width: 320px;
+    background-color: #fff;
+    z-index: 9999;
+    transform: translateX(100%);
+    transition: 0.5s;
+    padding-bottom: 50px;
+    > ul {
+      list-style: none;
+      overflow-y: auto;
+      max-height: calc(100vh - 85px);
+      li {
+        position: relative;
+        border-bottom: 1px solid #ddd;
+        a {
+          font-weight: 700;
+          font-size: 16px;
+          text-transform: uppercase;
+          display: block;
+          padding: 10px 10px;
+          color: #000;
+          opacity: 0.85;
+        }
+        .li-plus {
+          position: absolute;
+          width: 44px;
+          height: 44px;
+          line-height: 44px;
+          text-align: center;
+          display: block;
+          top: 0;
+          right: 0;
+          color: var(--primary-color);
+          transition: 0.3s;
+
+          border-left: 1px solid #ddd;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:after ,&:before{
+            content: " ";
+            width: 14px;
+            height: 2px;;
+            background-color: #8f8f8f;
+            display: block;
+          position: absolute;
+            top: 50%;
+            left: 50%;
+            transition: all 0.15s cubic-bezier(.42, 0, .58, 1);
+            opacity: 1;
+            border-radius: 2px;
+          }
+          &:before{
+            transform: translate(-50%, -50%) rotate(90deg);
+          }
+          &:after{
+            transform: translate(-50%, -50%);
+          }
+        }
+        .clicked {
+         &::before {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        &::after {
+          transform: translate(-50%, -50%) rotate(0deg);
+          opacity: 0;
+        }
+        }
+        & > ul {
+          margin-top: 0;
+          display: none;
+          li {
+            border: none;
+            border-top: 1px solid #ddd;
+            a {
+              padding-left: 25px;
+              text-transform: none;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+      .current-menu-item {
+        a {
+          color: #fff !important;
+          background: var(--primary-color);
+        }
+        ul {
+          a {
+            color: var(--primary-color);
+          }
+        }
+      }
+      .current-menu-parent {
+        ul {
+          display: block;
+        }
+      }
+    }
+    .header__menu-close {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      top: 0;
+      right: 0px;
+      svg {
+        color: var(--primary-color);
+      }
+    }
+    &.header__menu-active {
+      transform: translate(0);
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+//back top
+
+.back-to-top {
+  position: fixed;
+  bottom: 6rem;
+  right: 3rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary-color);
+  cursor: pointer;
+  z-index: 9999;
+}
+.swal2-html-container {
+  font-size: 16px;
+}
+
+.c-img {
+  position: relative;
+  width: 100%;
+  display: block;
+  padding-top: 70%;
+  &.img-66 {
+    padding-top: 66.72%;
+  }
+  img,
+  video {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.scale-hover {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  img {
+    @include smooth-trans();
+  }
+  &:hover > img {
+    transform: scale(1.09);
+  }
+}
+
+.kmar-pagination {
+  justify-content: center;
+  margin: 5rem 0 3rem 0;
+  ul {
+    display: flex;
+    justify-content: center;
+    li.active a {
+      background: var(--primary-color);
+      color: #fff;
+    }
+    li {
+      a {
+        float: left;
+        margin: 0 2.5px;
+        border-radius: 5px;
+        width: 35px;
+        height: 35px;
+        background: #f6f6f6;
+        border: solid 1px #ebebeb;
+        text-align: center;
+
+        font-size: 14px;
+        padding: 0;
+        line-height: 35px;
+        color: #282828;
+        text-decoration: none;
+        svg {
+          width: 10px;
+          height: 14px;
+          margin-bottom: 2px;
+          path {
+            stroke: var(--primary-color);
+          }
+        }
+        &:hover {
+          background: var(--primary-color);
+          color: #fff;
+          @include smooth-trans();
+          svg {
+            path {
+              stroke: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 991px) {
+  .col-lg-1-5 {
+    width: 20% !important;
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
+  }
+}
+
+.scroll-snap {
+  @media (max-width: 767px) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+  .item {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}

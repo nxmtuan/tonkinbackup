@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_1" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" width="151.6" height="151.6" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 151.6 151.6">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: url(#Sfumatura_senza_nome);
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke-miterlimit: 2.7;
+        stroke-width: 10.8px;
+      }
+
+      .cls-2 {
+        stroke: url(#Sfumatura_senza_nome_2);
+      }
+
+      .cls-3 {
+        stroke: #041c2c;
+        stroke-linecap: round;
+      }
+    </style>
+    <linearGradient id="Sfumatura_senza_nome" data-name="Sfumatura senza nome" x1="-219.4" y1="491.6" x2="-218.4" y2="491.6" gradientTransform="translate(28480.4 31910.1) scale(129.8 -64.9)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#041c2c" stop-opacity="0"/>
+      <stop offset="1" stop-color="#041c2c" stop-opacity=".5"/>
+    </linearGradient>
+    <linearGradient id="Sfumatura_senza_nome_2" data-name="Sfumatura senza nome 2" x1="-219.4" y1="490.6" x2="-218.4" y2="490.6" gradientTransform="translate(28480.4 31975) scale(129.8 -64.9)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#041c2c"/>
+      <stop offset="1" stop-color="#041c2c" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path class="cls-1" d="M10.9,75.8C10.9,40,40,10.9,75.8,10.9s64.9,29,64.9,64.9"/>
+    <path class="cls-2" d="M140.7,75.8c0,35.8-29,64.9-64.9,64.9S10.9,111.6,10.9,75.8"/>
+    <path class="cls-3" d="M10.9,75.8c0,1.8,0,3.6,0,5.4"/>
+  </g>
+  <animateTransform accumulate="none" additive="replace" attributeName="transform" calcMode="linear" dur="1300ms" fill="remove" from="0 0 0" repeatCount="indefinite" restart="always" to="360 0 0" type="rotate"/>
+</svg>

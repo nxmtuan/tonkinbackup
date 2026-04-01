@@ -1,0 +1,23 @@
+{
+    "key": "ui_options_page_67a09ba2a090d",
+    "title": "Script",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "Script",
+    "menu_slug": "script",
+    "parent_slug": "cai-dat-kmar",
+    "advanced_configuration": 0,
+    "icon_url": "",
+    "menu_title": "",
+    "position": "",
+    "redirect": false,
+    "description": "",
+    "update_button": "Update",
+    "updated_message": "Options Updated",
+    "capability": "edit_posts",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "_parent": 24,
+    "modified": 1738586743
+}

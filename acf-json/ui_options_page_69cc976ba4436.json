@@ -1,0 +1,23 @@
+{
+    "key": "ui_options_page_69cc976ba4436",
+    "title": "Cài đặt API",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "Cài đặt API",
+    "menu_slug": "api-setting",
+    "parent_slug": "cai-dat-kmar",
+    "advanced_configuration": 1,
+    "icon_url": "",
+    "menu_title": "",
+    "position": "",
+    "redirect": false,
+    "description": "",
+    "update_button": "Update",
+    "updated_message": "Options Updated",
+    "capability": "edit_posts",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "_parent": 24,
+    "modified": 1775015809
+}

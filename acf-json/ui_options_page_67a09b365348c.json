@@ -1,0 +1,22 @@
+{
+    "key": "ui_options_page_67a09b365348c",
+    "title": "Cài đặt Kmar",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "Cài đặt Kmar",
+    "menu_slug": "cai-dat-kmar",
+    "parent_slug": "none",
+    "advanced_configuration": 1,
+    "icon_url": "dashicons-admin-generic",
+    "menu_title": "",
+    "position": 2,
+    "redirect": 1,
+    "description": "",
+    "update_button": "Update",
+    "updated_message": "Options Updated",
+    "capability": "edit_posts",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "modified": 1738586743
+}
