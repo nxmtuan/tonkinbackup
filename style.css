@@ -220,6 +220,17 @@ iframe {
   flex-direction: column;
   align-items: center;
   height: 437px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.route-wrapper .item-route-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.46) 28%, rgba(0, 0, 0, 0) 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .route-wrapper .item-route-wrapper .route-destination-wrapper {
@@ -240,6 +251,7 @@ iframe {
   font-family: "Open Sans", serif;
   font-size: 16px;
   line-height: 1.2;
+  text-align: center;
   position: relative;
   z-index: 1;
   margin-top: auto;
@@ -255,6 +267,12 @@ iframe {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: -1;
+  transition: transform 300ms ease-in-out;
+}
+
+.item-route-wrapper:hover .route-image {
+  transform: scale(1.05);
 }
 
 /* Route Section — Responsive
