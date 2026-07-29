@@ -816,7 +816,6 @@
   function orient_express_filters() {
     //Rooms and restaurants page
     if (
-      $("html").hasClass("rooms-page") ||
       $("html").hasClass("restaurants-page") ||
       $("html").hasClass("explorations-page")
     ) {
@@ -828,29 +827,6 @@
           columnWidth: ".single-child-wrap",
         },
       });
-    }
-
-    if (
-      $("html").hasClass("single_train_page") &&
-      $("html").hasClass("rooms-page") &&
-      !is_phone
-    ) {
-      var container = $(".children-wrap");
-      if (is_mobile) {
-        container.isotope({
-          transitionDuration: 0,
-          itemSelector: ".single-child-wrap",
-          layoutMode: "fitRows",
-        });
-      } else {
-        container.isotope({
-          itemSelector: ".single-child-wrap",
-          layoutMode: "fitRows",
-          fitRows: {
-            equalheight: true,
-          },
-        });
-      }
     }
 
     //Photogallery page
@@ -891,17 +867,64 @@
     }
 
     //filter items on selct mobile version
-    $(".filter-wrap-mobile select").change(function () {
-      container.isotope({ filter: this.value });
-    });
+    if (typeof container !== "undefined") {
+      $(".filter-wrap-mobile select").change(function () {
+        container.isotope({ filter: this.value });
+      });
+    }
   }
 
   jQuery(document).ready(function ($) {
-    // Khởi tạo Isotope
-    var $grid = $(".children-wrap").isotope({
+    var isRoomsPage = $("html").hasClass("rooms-page");
+    var gridOptions = {
       itemSelector: ".single-child-wrap",
-      layoutMode: "fitRows",
-    });
+      layoutMode: isRoomsPage ? "masonry" : "fitRows",
+    };
+
+    if (isRoomsPage) {
+      gridOptions.masonry = {
+        columnWidth: ".single-child-wrap",
+      };
+    }
+
+    // Khởi tạo Isotope một lần duy nhất.
+    var $grid = $(".children-wrap").isotope(gridOptions);
+
+    function layoutRoomsAfterImagesLoad() {
+      var $images = $grid.find("img");
+      var pendingImages = $images.length;
+
+      if (!pendingImages) {
+        $grid.isotope("layout");
+        return;
+      }
+
+      $images.each(function () {
+        if (this.complete) {
+          pendingImages--;
+        } else {
+          $(this).one("load error", function () {
+            pendingImages--;
+            if (!pendingImages) {
+              $grid.isotope("layout");
+            }
+          });
+        }
+      });
+
+      if (!pendingImages) {
+        $grid.isotope("layout");
+      }
+    }
+
+    if (isRoomsPage) {
+      layoutRoomsAfterImagesLoad();
+
+      $(document).on("rooms:updated", function () {
+        $grid.isotope("reloadItems");
+        layoutRoomsAfterImagesLoad();
+      });
+    }
 
     // Khi nhấn vào các nút lọc
     $(".filter_container a").on("click", function (e) {

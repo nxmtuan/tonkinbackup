@@ -12,6 +12,7 @@ jQuery(document).ready(function($) {
            
             success: function(response) {
                 $('.ajax-wrap').html(response);
+                $(document).trigger('rooms:updated');
             },
             
         });
