@@ -7,6 +7,8 @@ Template Name: Route
 $routes = function_exists('tonkin_get_routes') ? tonkin_get_routes() : array();
 $fallback_image = get_stylesheet_directory_uri() . '/assets/images/211129_TDV_15__RESIZED.jpg';
 $route_banners = array();
+$routes_title = get_field('routes_title');
+$routes_content = get_field('routes_content');
 
 if (!empty($routes)) {
     foreach ($routes as $route) {
@@ -50,13 +52,16 @@ get_header();
 
     <section class="main-content">
         <div class="container-large">
-            <h2 class="the-title">ROUTES</h2>
-            <div id="main_content_wrap" class="container">
-                <div class="content-wrapper text-center">
-                    <p>Tradition Moves Forwards</p>
-                    <p>A new chapter in luxury rail — where heritage glides on polished rails.</p>
+            <?php if ($routes_title) : ?>
+                <h2 class="the-title"><?php echo esc_html($routes_title); ?></h2>
+            <?php endif; ?>
+            <?php if ($routes_content) : ?>
+                <div id="main_content_wrap" class="container">
+                    <div class="content-wrapper text-center">
+                        <?php echo wp_kses_post($routes_content); ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
             <div class="line-wrapper">
                 <div class="decoration-line"></div>
                 <h3 class="the-sub-title">Please select one of the below routes</h3>
