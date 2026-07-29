@@ -831,11 +831,26 @@
 
     //Photogallery page
     if ($(".photo-gallery-container").length) {
-      var container = $(".photo-gallery-container");
-      container.isotope({
-        itemSelector: ".single-image-wrap",
-        percentPosition: true,
-        layoutMode: "masonry",
+      $(".photo-gallery-container").each(function () {
+        var $gallery = $(this);
+
+        $gallery.isotope({
+          itemSelector: ".single-image-wrap",
+          percentPosition: true,
+          layoutMode: "masonry",
+        });
+
+        function layoutGallery() {
+          $gallery.isotope("layout");
+        }
+
+        $gallery.find("img").each(function () {
+          if (this.complete) {
+            layoutGallery();
+          } else {
+            $(this).one("load error", layoutGallery);
+          }
+        });
       });
     }
 
