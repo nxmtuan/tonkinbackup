@@ -160,6 +160,23 @@ function kmar_scripts() {
 
 
 	wp_enqueue_style( 'kmar-style-main', get_template_directory_uri() . '/assets/scss/style.css', array(), _S_VERSION );
+
+	$page_decoration_image = function_exists( 'get_field' ) ? get_field( 'icon_on_bottom_page', 'option' ) : 0;
+	if ( is_array( $page_decoration_image ) ) {
+		$page_decoration_image = $page_decoration_image['url'] ?? '';
+	} elseif ( is_numeric( $page_decoration_image ) ) {
+		$page_decoration_image = wp_get_attachment_image_url( (int) $page_decoration_image, 'full' );
+	}
+
+	if ( $page_decoration_image ) {
+		wp_add_inline_style(
+			'kmar-style-main',
+			'#page::after { background-image: url("' . esc_url_raw( $page_decoration_image ) . '"); }'
+		);
+	} else {
+		wp_add_inline_style( 'kmar-style-main', '#page::after { display: none; }' );
+	}
+
 	wp_enqueue_style( 'kmar-style-select2', get_template_directory_uri() . '/assets/libs/select2.min.css', array(), _S_VERSION );
 	wp_enqueue_style( 'kmar-slick', get_template_directory_uri() . '/assets/libs/slick.css' );
 	wp_enqueue_style( 'kmar-ui', get_template_directory_uri() . '/assets/libs/jquery-ui.css' );
