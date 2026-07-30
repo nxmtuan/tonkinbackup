@@ -91,7 +91,7 @@ if ( $query->have_posts() ) : ?>
 
 			<?php if ( $total_pages > 1 ) : ?>
 				<nav aria-label="Page navigation">
-					<ul class="pagination-cus border-pagination" data-post-type="room">
+					<ul class="pagination-cus border-pagination" data-post-type="post">
 						<li class="page-item prev <?php echo ( $paged <= 1 ) ? 'disabled' : ''; ?>">
 							<a class="" href="#" data-paged="<?php echo ( $paged > 1 ) ? $paged - 1 : 1; ?>">&laquo; </a>
 						</li>

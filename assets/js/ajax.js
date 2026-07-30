@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    function loadRooms(paged,postType) {
+    function loadPosts(paged, postType, $target) {
         $.ajax({
             type: 'POST',
             url: ajaxurl.ajaxurl,
@@ -9,10 +9,10 @@ jQuery(document).ready(function($) {
                 post_type: postType,
                 security: ajaxurl.security,
             },
-           
+
             success: function(response) {
-                $('.ajax-wrap').html(response);
-                $(document).trigger('rooms:updated');
+                $target.html(response);
+                $(document).trigger('content:updated', [$target]);
             },
             
         });
@@ -20,10 +20,22 @@ jQuery(document).ready(function($) {
 
     $(document).on('click', '.pagination-cus a', function(e) {
         e.preventDefault();
+
+        if ($(this).closest('.page-item').hasClass('disabled')) {
+            return;
+        }
+
         var paged = $(this).data('paged');
-        var postType = $('.pagination-cus').data('post-type');
-        loadRooms(paged, postType);
-        $('.pagination-cus a').removeClass('active');
+        var $pagination = $(this).closest('.pagination-cus');
+        var postType = $pagination.data('post-type');
+        var $target = $pagination.closest('.container-large').find('.ajax-wrap').first();
+
+        if (!$target.length || !paged) {
+            return;
+        }
+
+        loadPosts(paged, postType, $target);
+        $pagination.find('a').removeClass('active');
         $(this).addClass('active');
     });
 });

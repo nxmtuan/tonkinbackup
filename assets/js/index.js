@@ -905,12 +905,12 @@
     // Khởi tạo Isotope một lần duy nhất.
     var $grid = $(".children-wrap").isotope(gridOptions);
 
-    function layoutRoomsAfterImagesLoad() {
-      var $images = $grid.find("img");
+    function layoutGridAfterImagesLoad($container) {
+      var $images = $container.find("img");
       var pendingImages = $images.length;
 
       if (!pendingImages) {
-        $grid.isotope("layout");
+        $container.isotope("layout");
         return;
       }
 
@@ -921,25 +921,31 @@
           $(this).one("load error", function () {
             pendingImages--;
             if (!pendingImages) {
-              $grid.isotope("layout");
+              $container.isotope("layout");
             }
           });
         }
       });
 
       if (!pendingImages) {
-        $grid.isotope("layout");
+        $container.isotope("layout");
       }
     }
 
     if (isRoomsPage) {
-      layoutRoomsAfterImagesLoad();
-
-      $(document).on("rooms:updated", function () {
-        $grid.isotope("reloadItems");
-        layoutRoomsAfterImagesLoad();
-      });
+      layoutGridAfterImagesLoad($grid);
     }
+
+    $(document).on("content:updated", function (event, $updatedGrid) {
+      if (!$updatedGrid || !$updatedGrid.length || !$updatedGrid.data("isotope")) {
+        return;
+      }
+
+      var filterValue = $(".filter_container a.active").attr("data-category") || ".all-items";
+      $updatedGrid.isotope("reloadItems");
+      $updatedGrid.isotope({ filter: filterValue });
+      layoutGridAfterImagesLoad($updatedGrid);
+    });
 
     // Khi nhấn vào các nút lọc
     $(".filter_container a").on("click", function (e) {

@@ -332,12 +332,31 @@ function load_room_posts() {
         wp_send_json_error(['message' => 'Lỗi bảo mật!'], 403);
         wp_die();
     }
-	$paged = isset( $_POST['paged'] ) ? intval( $_POST['paged'] ) : 1;
-	$posts_per_page = 1;
-	$post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : 'room';
+	$paged = isset( $_POST['paged'] ) ? max( 1, intval( $_POST['paged'] ) ) : 1;
+	$post_type = isset( $_POST['post_type'] ) ? sanitize_key( $_POST['post_type'] ) : 'room';
+	$pagination_configs = array(
+		'room' => array(
+			'posts_per_page' => 8,
+			'taxonomy'       => 'cat_room',
+		),
+		'trip' => array(
+			'posts_per_page' => 6,
+			'taxonomy'       => 'cat_trip',
+		),
+		'post' => array(
+			'posts_per_page' => 8,
+			'taxonomy'       => 'category',
+		),
+	);
+
+	if ( ! isset( $pagination_configs[ $post_type ] ) ) {
+		wp_send_json_error( array( 'message' => 'Loại nội dung không hợp lệ.' ), 400 );
+	}
+
+	$config = $pagination_configs[ $post_type ];
 	$args = array(
 		'post_type' => $post_type,
-		'posts_per_page' => $posts_per_page,
+		'posts_per_page' => $config['posts_per_page'],
 		'paged' => $paged,
 		'post_status' => 'publish',
 	);
@@ -347,7 +366,7 @@ function load_room_posts() {
 	if ( $query->have_posts() ) :
 		while ( $query->have_posts() ) :
 			$query->the_post();
-			$terms = get_the_terms( get_the_ID(), 'cat_room' );
+			$terms = get_the_terms( get_the_ID(), $config['taxonomy'] );
 			$categories_class = 'all-items default';
 			if ( ! empty( $terms ) && ! is_wp_error( $terms ) )
 			{
