@@ -87,6 +87,18 @@ get_header();
                                             </div>
                                         </div>
                                     <?php endif; ?>
+                                    <?php if (get_field('max_person_on_room')) : ?>
+                                        <div class="item-wrap">
+                                            <div class="item capacity">
+                                                <span class="icon">
+													 <?php echo svg('capacity', '26','26') ?>
+												</span>
+                                                <span class="label">
+                                                    <?php the_field('max_person_on_room'); ?>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
 					</div>
 					<div class="container_booking_info">
 						<div class="buttons_container vertical inline_separated">
