@@ -751,22 +751,19 @@ a {
   src: url(../fonts/Optima.eot#iefix) format("embedded-opentype"), url(../fonts/Optima.woff2) format("woff2"), url(../fonts/Optima.woff) format("woff"), url(../images/Optima.svg#svgFontName) format("svg");
 }
 @font-face {
-  font-family: "PostGrotesk-Medium";
+  font-family: "SourceSerif4-Medium";
   font-display: swap;
-  src: url(../fonts/PostGrotesk-Medium.eot);
-  src: url(../fonts/PostGrotesk-Medium.eot#iefix) format("embedded-opentype"), url(../fonts/PostGrotesk-Medium.woff2) format("woff2"), url(../fonts/PostGrotesk-Medium.woff) format("woff"), url(../images/PostGrotesk-Medium.svg#PostGrotesk-Medium) format("svg");
+  src: url(../fonts/SourceSerif4-Medium.ttf) format("truetype");
 }
 @font-face {
-  font-family: "PostGrotesk-Book";
+  font-family: "SourceSerif4";
   font-display: swap;
-  src: url(../fonts/PostGrotesk-Book.eot);
-  src: url(../fonts/PostGrotesk-Book.eot#iefix) format("embedded-opentype"), url(../fonts/PostGrotesk-Book.woff2) format("woff2"), url(../fonts/PostGrotesk-Book.woff) format("woff"), url(../images/PostGrotesk-Book.svg#PostGrotesk-Book) format("svg");
+  src: url(../fonts/SourceSerif4-Regular.ttf) format("truetype");
 }
 @font-face {
-  font-family: "PostGrotesk-Bold";
+  font-family: "SourceSerif4-Bold";
   font-display: swap;
-  src: url(../fonts/PostGrotesk-Bold.eot);
-  src: url(../fonts/PostGrotesk-Bold.eot#iefix) format("embedded-opentype"), url(../fonts/PostGrotesk-Bold.woff2) format("woff2"), url(../fonts/PostGrotesk-Bold.woff) format("woff"), url(../images/PostGrotesk-Bold.svg#PostGrotesk-Bold) format("svg");
+  src: url(../fonts/SourceSerif4-Bold.ttf) format("truetype");
 }
 @font-face {
   font-family: "DidoRegular";
@@ -775,13 +772,13 @@ a {
   src: url(../fonts/DidotLTStd-Roman.eot#iefix) format("embedded-opentype"), url(../fonts/DidotLTStd-Roman.woff2) format("woff2"), url(../fonts/DidotLTStd-Roman.woff) format("woff"), url(../images/DidotLTStd-Roman.svg#DidotLTStd-Roman) format("svg");
 }
 :root {
-  --default-font: "PostGrotesk-Book", sans-serif;
-  --title-font-medium: "PostGrotesk-Medium", serif;
+  --default-font: "SourceSerif4", sans-serif;
+  --title-font-medium: "SourceSerif4-Medium", serif;
   --title-font: "DidoRegular", serif;
   --title-font-italic: "DidotLTStd-italic", serif;
   --subtitle-font: "DidotLTStd-italic", serif;
-  --default-medium: "PostGrotesk-Medium", sans-serif;
-  --menu-font: "PostGrotesk-Book", sans-serif;
+  --default-medium: "SourceSerif4-Medium", sans-serif;
+  --menu-font: "SourceSerif4", sans-serif;
   --citation-font: "Optima";
   --black-color: 0, 0, 0;
   --white-bg: 255, 255, 255;
@@ -965,7 +962,7 @@ em {
 
 b,
 strong {
-  font-family: PostGrotesk-Bold;
+  font-family: SourceSerif4-Bold;
   font-weight: 700;
 }
 
@@ -1743,7 +1740,7 @@ a.title_offer_link .title-offer {
 .event-type-wrapper .category-type {
   text-transform: uppercase;
   font-size: 0.8em;
-  font-family: PostGrotesk-Medium, sans-serif;
+  font-family: SourceSerif4-Medium, sans-serif;
 }
 
 .event-type-wrapper .category-type a {
@@ -10531,7 +10528,7 @@ body.page-template-template-newsletter .popup_newsletter_already_subscribed .mai
 }
 
 .footer-section-title {
-  font-family: PostGrotesk-Bold, sans-serif;
+  font-family: SourceSerif4-Bold, sans-serif;
   font-weight: 900;
   display: block;
   text-align: left;
