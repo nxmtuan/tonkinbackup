@@ -327,6 +327,33 @@ if ( class_exists( 'WooCommerce' ) )
 }
 
 
+function tonkin_component_pagination_html( $total_pages, $paged, $post_type ) {
+	if ( $total_pages <= 1 ) {
+		return '';
+	}
+
+	ob_start();
+	?>
+	<nav aria-label="Page navigation">
+		<ul class="pagination-cus border-pagination" data-post-type="<?php echo esc_attr( $post_type ); ?>">
+			<li class="page-item prev <?php echo ( $paged <= 1 ) ? 'disabled' : ''; ?>">
+				<a href="#" data-paged="<?php echo esc_attr( ( $paged > 1 ) ? $paged - 1 : 1 ); ?>">&laquo;</a>
+			</li>
+			<?php for ( $i = 1; $i <= $total_pages; $i++ ) : ?>
+				<li class="page-item">
+					<a class="<?php echo ( $i === $paged ) ? 'active' : ''; ?>" href="#" data-paged="<?php echo esc_attr( $i ); ?>"><?php echo esc_html( $i ); ?></a>
+				</li>
+			<?php endfor; ?>
+			<li class="page-item next <?php echo ( $paged >= $total_pages ) ? 'disabled' : ''; ?>">
+				<a href="#" data-paged="<?php echo esc_attr( ( $paged < $total_pages ) ? $paged + 1 : $total_pages ); ?>">&raquo;</a>
+			</li>
+		</ul>
+	</nav>
+	<?php
+
+	return ob_get_clean();
+}
+
 function load_room_posts() {
 	if (!isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'common_nonce')) {
         wp_send_json_error(['message' => 'Lỗi bảo mật!'], 403);
@@ -354,6 +381,7 @@ function load_room_posts() {
 	}
 
 	$config = $pagination_configs[ $post_type ];
+	$term_id = isset( $_POST['term_id'] ) ? absint( $_POST['term_id'] ) : 0;
 	$args = array(
 		'post_type' => $post_type,
 		'posts_per_page' => $config['posts_per_page'],
@@ -361,7 +389,23 @@ function load_room_posts() {
 		'post_status' => 'publish',
 	);
 
+	if ( $term_id ) {
+		$term = get_term( $term_id, $config['taxonomy'] );
+		if ( ! $term || is_wp_error( $term ) ) {
+			wp_send_json_error( array( 'message' => 'Danh mục không hợp lệ.' ), 400 );
+		}
+
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => $config['taxonomy'],
+				'field'    => 'term_id',
+				'terms'    => $term_id,
+			),
+		);
+	}
+
 	$query = new WP_Query( $args );
+	ob_start();
 
 	if ( $query->have_posts() ) :
 		while ( $query->have_posts() ) :
@@ -380,10 +424,16 @@ function load_room_posts() {
 			<?php get_template_part('template-parts/content',get_post_type())  ?>
 			</div>
 		<?php endwhile;
-	
 	endif;
+	$html = ob_get_clean();
 	wp_reset_postdata();
-	wp_die();
+
+	wp_send_json_success(
+		array(
+			'html'       => $html,
+			'pagination' => tonkin_component_pagination_html( (int) $query->max_num_pages, $paged, $post_type ),
+		)
+	);
 }
 
 add_action( 'wp_ajax_load_rooms', 'load_room_posts' );

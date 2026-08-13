@@ -941,7 +941,8 @@
         return;
       }
 
-      var filterValue = $(".filter_container a.active").attr("data-category") || ".all-items";
+      var filterValue = $updatedGrid.closest(".children").prevAll(".filter_wrapper").first()
+        .find(".filter_container a.active").attr("data-category") || ".all-items";
       $updatedGrid.isotope("reloadItems");
       $updatedGrid.isotope({ filter: filterValue });
       layoutGridAfterImagesLoad($updatedGrid);

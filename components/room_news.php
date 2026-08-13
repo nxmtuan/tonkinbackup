@@ -69,7 +69,7 @@ $args = array(
 $query = new WP_Query( $args );
 $total_pages = $query->max_num_pages;
 if ( $query->have_posts() ) : ?>
-	<div id="rooms" class="children section">
+	<div id="rooms" class="children section" data-post-type="post">
 		<div class="container-large">
 			<div class="children-wrap ajax-wrap">
 				<?php while ( $query->have_posts() ) :
