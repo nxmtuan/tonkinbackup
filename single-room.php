@@ -201,6 +201,13 @@ get_header();
 
     <?php
         $current_id = get_the_ID(); // Lấy ID bài viết hiện tại
+        $current_terms = get_the_terms( $current_id, 'cat_room' );
+        $term_ids = array();
+        if ( ! empty( $current_terms ) && ! is_wp_error( $current_terms ) ) {
+            foreach ( $current_terms as $t ) {
+                $term_ids[] = $t->term_id;
+            }
+        }
 
         $args = array(
             'post_type'      => get_post_type(), // Lấy cùng post type
@@ -209,6 +216,17 @@ get_header();
             'orderby'        => 'date', // Sắp xếp theo ngày đăng mới nhất
             'order'          => 'DESC',
         );
+
+        // Lọc theo cùng tuyến (cat_room) nếu có
+        if ( ! empty( $term_ids ) ) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'cat_room',
+                    'field'    => 'term_id',
+                    'terms'    => $term_ids,
+                ),
+            );
+        }
 
         $query = new WP_Query($args);
 
