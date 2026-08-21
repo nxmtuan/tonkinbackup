@@ -218,6 +218,56 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_67c61f8b1a201": {
+                    "key": "layout_67c61f8b1a201",
+                    "name": "block_page_title_description",
+                    "label": "Khối tiêu đề và mô tả",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_67c61f8b1a202",
+                            "label": "Tiêu đề",
+                            "name": "title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_67c61f8b1a203",
+                            "label": "Mô tả",
+                            "name": "desc",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_67a31550c879c": {
                     "key": "layout_67a31550c879c",
                     "name": "block_intro",
@@ -716,6 +766,7 @@
                                         "id": ""
                                     },
                                     "layout": "block",
+                                    "parent_repeater": "field_67a1ede148533",
                                     "sub_fields": [
                                         {
                                             "key": "field_67a1eed248537",
@@ -757,8 +808,7 @@
                                             "prepend": "",
                                             "append": ""
                                         }
-                                    ],
-                                    "parent_repeater": "field_67a1ede148533"
+                                    ]
                                 },
                                 {
                                     "key": "field_67a1eef048539",
@@ -1250,6 +1300,7 @@
                                     "collapsed": "",
                                     "button_label": "Thêm câu hỏi",
                                     "rows_per_page": 20,
+                                    "parent_repeater": "field_67a5dfaf9d1b2",
                                     "sub_fields": [
                                         {
                                             "key": "field_67a5e0039d1b5",
@@ -1293,8 +1344,7 @@
                                             "delay": 0,
                                             "parent_repeater": "field_67a5dff29d1b4"
                                         }
-                                    ],
-                                    "parent_repeater": "field_67a5dfaf9d1b2"
+                                    ]
                                 }
                             ]
                         }
@@ -1433,6 +1483,7 @@
                                         "id": ""
                                     },
                                     "layout": "block",
+                                    "parent_repeater": "field_67a60791583fc",
                                     "sub_fields": [
                                         {
                                             "key": "field_67a6090558400",
@@ -1474,8 +1525,7 @@
                                             "prepend": "",
                                             "append": ""
                                         }
-                                    ],
-                                    "parent_repeater": "field_67a60791583fc"
+                                    ]
                                 }
                             ]
                         }
@@ -1826,56 +1876,6 @@
                     "sub_fields": [],
                     "min": "",
                     "max": ""
-                },
-                "layout_67c61f8b1a201": {
-                    "key": "layout_67c61f8b1a201",
-                    "name": "block_page_title_description",
-                    "label": "Khối tiêu đề và mô tả",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_67c61f8b1a202",
-                            "label": "Tiêu đề",
-                            "name": "title",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        },
-                        {
-                            "key": "field_67c61f8b1a203",
-                            "label": "Mô tả",
-                            "name": "desc",
-                            "aria-label": "",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "tabs": "all",
-                            "toolbar": "full",
-                            "media_upload": 1,
-                            "delay": 0
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
                 }
             },
             "min": "",
@@ -1903,5 +1903,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1787303930
+    "modified": 1787304307
 }
