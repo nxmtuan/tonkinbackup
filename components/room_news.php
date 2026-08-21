@@ -1,20 +1,4 @@
-<section class="main-content ">
-	<div class="container-small">
-		<?php if ( get_field( 'room_title_intro', 'option' ) ) : ?>
-			<h2 class="the-title">
-				<?php the_field( 'room_title_intro', 'option' ); ?>
-			</h2>
-		<?php endif; ?>
 
-		<?php if ( get_field( 'room_content_intro', 'option' ) ) : ?>
-			<div id="main_content_wrap" class="container">
-				<div class="content-wrapper text-center">
-					<?php the_field( 'room_content_intro', 'option' ); ?>
-				</div>
-			</div>
-		<?php endif; ?>
-	</div>
-</section>
 
 <?php
 $terms = get_terms( array(

@@ -49,6 +49,18 @@
 					</div>
 				</div>
 			<?php endif; ?>
+			<?php if ( get_field( 'max_person_on_room' ) ) : ?>
+				<div class="item-wrap">
+					<div class="item capacity-type">
+						<span class="icon">
+							<?php echo svg( 'capacity', '28', '28' ) ?>
+						</span>
+						<span class="label">
+							<?php the_field( 'max_person_on_room' ); ?>
+						</span>
+					</div>
+				</div>
+			<?php endif; ?>
 		</div>
 		<div class="buttons_container vertical inline_separated">
 			<a class="view-more tracking_view_more" href="<?php the_permalink(); ?>" aria-label="<?php the_title(); ?>">

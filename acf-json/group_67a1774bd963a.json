@@ -1826,6 +1826,56 @@
                     "sub_fields": [],
                     "min": "",
                     "max": ""
+                },
+                "layout_67c61f8b1a201": {
+                    "key": "layout_67c61f8b1a201",
+                    "name": "block_page_title_description",
+                    "label": "Khối tiêu đề và mô tả",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_67c61f8b1a202",
+                            "label": "Tiêu đề",
+                            "name": "title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_67c61f8b1a203",
+                            "label": "Mô tả",
+                            "name": "desc",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -1853,5 +1903,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1741020436
+    "modified": 1787303930
 }
